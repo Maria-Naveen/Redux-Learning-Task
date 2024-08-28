@@ -6,8 +6,8 @@ const AllUsersDisplay = () => {
   const users = useSelector(selectUsers);
 
   return (
-    <div>
-      <h1>Users List</h1>
+    <div className="flex justify-center items-center flex-col py-4">
+      <h1 className="font-bold my-4">Users List</h1>
       <Table
         className="border border-gray-900 mx-auto text-center w-1/2"
         size="lg"
