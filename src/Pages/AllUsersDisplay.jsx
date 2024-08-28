@@ -2,7 +2,7 @@ import { Table } from "reactstrap";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectUsers } from "../slices/userSlice";
-const Home = () => {
+const AllUsersDisplay = () => {
   const users = useSelector(selectUsers);
 
   return (
@@ -39,4 +39,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default AllUsersDisplay;

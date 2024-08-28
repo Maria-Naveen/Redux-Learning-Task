@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./Pages/Home";
-import About from "./Pages/About";
+import AllUsersDisplay from "./Pages/AllUsersDisplay";
+import UserInfoDisplay from "./Pages/UserInfoDisplay";
 import NavBar from "./components/NavBar";
 import "./index.css";
 const App = () => {
@@ -8,8 +8,8 @@ const App = () => {
     <BrowserRouter>
       <NavBar></NavBar>
       <Routes>
-        <Route path="/" element={<Home></Home>}></Route>
-        <Route path="/about/:id" element={<About></About>}></Route>
+        <Route path="/" element={<AllUsersDisplay />}></Route>
+        <Route path="/about/:id" element={<UserInfoDisplay />}></Route>
       </Routes>
     </BrowserRouter>
   );

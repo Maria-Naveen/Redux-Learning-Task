@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { useParams, Link } from "react-router-dom";
 import { selectUsers } from "../slices/userSlice";
-const About = () => {
+const UserInfoDisplay = () => {
   const { id } = useParams();
   const users = useSelector(selectUsers);
   const user = users.find((user) => user.id === parseInt(id));
@@ -22,4 +22,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default UserInfoDisplay;
