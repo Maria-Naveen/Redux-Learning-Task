@@ -1,18 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-const initialState = {
-  users: [
-    { id: 1, name: "John", age: 23, degree: "BE" },
-    { id: 2, name: "Sam", age: 24, degree: "Arts" },
-  ],
-};
+import { fetchData } from "./dataAPI";
 
 const userSlice = createSlice({
   name: "users",
-  initialState,
+  initialState: {
+    items: [],
+    loading: false,
+    error: null,
+  },
   reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchData.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchData.fulfilled, (state, action) => {
+        state.loading = false;
+        state.items = action.payload;
+      })
+      .addCase(fetchData.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+  },
 });
-
-export const selectUsers = (state) => state.users.users;
 
 export default userSlice.reducer;
