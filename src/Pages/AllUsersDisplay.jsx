@@ -10,7 +10,7 @@ const AllitemsDisplay = () => {
 
   useEffect(() => {
     dispatch(fetchData());
-  }, [dispatch]);
+  }, []);
 
   if (loading) {
     return <div>Loading...</div>;
