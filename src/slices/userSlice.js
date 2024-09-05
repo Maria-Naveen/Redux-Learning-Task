@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchData } from "./dataAPI";
+import { fetchData } from "./dataAPI"; // Assuming this is your fetch action
 
 const userSlice = createSlice({
   name: "users",
@@ -8,7 +8,11 @@ const userSlice = createSlice({
     loading: false,
     error: null,
   },
-  reducers: {},
+  reducers: {
+    addUserToList: (state, action) => {
+      state.items.push(action.payload); // Add the new user to the list
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchData.pending, (state) => {
@@ -25,4 +29,6 @@ const userSlice = createSlice({
   },
 });
 
+// Export the action creator
+export const { addUserToList } = userSlice.actions;
 export default userSlice.reducer;
