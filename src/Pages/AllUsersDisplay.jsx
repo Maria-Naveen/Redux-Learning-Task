@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchData } from "../slices/dataAPI";
 import AddUserForm from "../components/AddUserForm";
+import { removeUserFromList } from "../slices/userSlice";
 const AllUsersDisplay = () => {
   const dispatch = useDispatch();
   const { items, loading, error } = useSelector((state) => state.users);
@@ -19,6 +20,10 @@ const AllUsersDisplay = () => {
 
   const closeForm = () => {
     setIsFormOpen(false); // Close the form
+  };
+
+  const handleClick = (id) => {
+    dispatch(removeUserFromList(id));
   };
 
   if (loading) {
@@ -62,6 +67,14 @@ const AllUsersDisplay = () => {
                   <Link to={`/about/${item.id}`}>
                     <button>View</button>
                   </Link>
+                </td>
+                <td>
+                  <button
+                    onClick={() => handleClick(item.id)}
+                    className="bg-red-400 rounded-lg p-3"
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))
