@@ -5,14 +5,17 @@ import { Link } from "react-router-dom";
 import { fetchData } from "../slices/dataAPI";
 import AddUserForm from "../components/AddUserForm";
 import { removeUserFromList } from "../slices/userSlice";
+import { setSearch } from "../slices/searchSlice";
+
 const AllUsersDisplay = () => {
   const dispatch = useDispatch();
   const { items, loading, error } = useSelector((state) => state.users);
+  const search = useSelector((state) => state.search);
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   useEffect(() => {
     dispatch(fetchData());
-  }, []);
+  }, [dispatch]);
 
   const handleAddUserClick = () => {
     setIsFormOpen(true); // Open the form when the button is clicked
@@ -26,6 +29,14 @@ const AllUsersDisplay = () => {
     dispatch(removeUserFromList(id));
   };
 
+  const handleSearch = (e) => {
+    dispatch(setSearch(e.target.value));
+  };
+
+  const filteredUsers = items.filter((item) =>
+    item.name.toLowerCase().includes(search.toLowerCase())
+  );
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -34,6 +45,14 @@ const AllUsersDisplay = () => {
   }
   return (
     <div className="flex justify-center items-center flex-col py-4">
+      {/* implementing search functionality */}
+      <input
+        className="border border-gray-600 p-2"
+        type="text"
+        placeholder="Search here..."
+        value={search}
+        onChange={handleSearch}
+      />
       <h1 className="font-bold my-4">Users List</h1>
       {/* Button to open form */}
       <button
@@ -57,21 +76,21 @@ const AllUsersDisplay = () => {
           </tr>
         </thead>
         <tbody>
-          {items.length > 0 ? (
-            items.map((item) => (
+          {filteredUsers.length > 0 ? (
+            filteredUsers.map((item) => (
               <tr key={item.id}>
                 <td>{item.name}</td>
                 <td>{item.email}</td>
                 <td>{item.address.city}</td>
                 <td>
                   <Link to={`/about/${item.id}`}>
-                    <button>View</button>
+                    <button className="bg-blue-400 rounded-lg p-2">View</button>
                   </Link>
                 </td>
                 <td>
                   <button
                     onClick={() => handleClick(item.id)}
-                    className="bg-red-400 rounded-lg p-3"
+                    className="bg-red-400 rounded-lg p-2"
                   >
                     Delete
                   </button>
