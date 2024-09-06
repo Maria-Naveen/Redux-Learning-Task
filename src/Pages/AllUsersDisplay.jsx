@@ -5,12 +5,13 @@ import { Link } from "react-router-dom";
 import { fetchData } from "../slices/dataAPI";
 import AddUserForm from "../components/AddUserForm";
 import { removeUserFromList } from "../slices/userSlice";
-import { setSearch } from "../slices/searchSlice";
+// import { setSearch } from "../slices/searchSlice";
 
 const AllUsersDisplay = () => {
   const dispatch = useDispatch();
   const { items, loading, error } = useSelector((state) => state.users);
-  const search = useSelector((state) => state.search);
+  const [search, setSearch] = useState("");
+  // const search = useSelector((state) => state.search);
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   useEffect(() => {
