@@ -5,13 +5,11 @@ import { Link } from "react-router-dom";
 import { fetchData } from "../slices/dataAPI";
 import AddUserForm from "../components/AddUserForm";
 import { removeUserFromList } from "../slices/userSlice";
-// import { setSearch } from "../slices/searchSlice";
 
 const AllUsersDisplay = () => {
   const dispatch = useDispatch();
   const { items, loading, error } = useSelector((state) => state.users);
   const [search, setSearch] = useState("");
-  // const search = useSelector((state) => state.search);
   const [isFormOpen, setIsFormOpen] = useState(false);
 
   useEffect(() => {
@@ -31,15 +29,19 @@ const AllUsersDisplay = () => {
   };
 
   const handleSearch = (e) => {
-    dispatch(setSearch(e.target.value));
+    setSearch(e.target.value);
   };
 
   const filteredUsers = items.filter((item) =>
     item.name.toLowerCase().includes(search.toLowerCase())
   );
 
+  const handleRefresh = () => {
+    dispatch(fetchData());
+  };
+
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="text-center">Loading...</div>;
   }
   if (error) {
     return <div>Error: {error}</div>;
@@ -54,6 +56,12 @@ const AllUsersDisplay = () => {
         value={search}
         onChange={handleSearch}
       />
+      <button
+        onClick={handleRefresh}
+        className="absolute right-2 top-2 p-3 border border-red-900 bg-pink-200"
+      >
+        Refresh
+      </button>
       <h1 className="font-bold my-4">Users List</h1>
       {/* Button to open form */}
       <button

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addUserToList } from "../slices/userSlice"; // Ensure this import is correct
+import { addUserToList } from "../slices/userSlice";
 
 const AddUserForm = ({ onClose }) => {
   const dispatch = useDispatch();
